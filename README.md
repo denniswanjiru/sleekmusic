@@ -1,1 +1,2 @@
-# sleekmusic
+# Sleek
+- Music reimagined - A Spotify clone.
