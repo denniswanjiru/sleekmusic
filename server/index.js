@@ -1,9 +1,11 @@
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
+app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("<h1>Welcome to my blog. Learn about my past experiences.</h1>");
+  res.send({ name: "Sleek", description: "Music reimagined" });
 });
 
 app.listen(8080, () => {
