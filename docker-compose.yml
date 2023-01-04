@@ -8,10 +8,12 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - './client:/usr/app/client'
+      - './client:/usr/app'
       - '/usr/app/node_modules'
     environment:
+      - REACT_APP_BACKEND_URL=/api
       - CHOKIDAR_USEPOLLING=true
+
   server:
     build: 
       context: ./server
@@ -20,5 +22,15 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - './server:/usr/app/server'
+      - './server:/usr/app'
       - '/usr/app/node_modules'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+  # nginx:
+  #   build:
+  #     context: ./nginx
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 3000:80
+  #   restart: always

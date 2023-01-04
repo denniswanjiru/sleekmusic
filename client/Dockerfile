@@ -1,15 +1,15 @@
 FROM node:18-alpine
 
-WORKDIR /usr/app
+WORKDIR /app
 
-COPY package.json .
+COPY package*.json ./
 
-RUN yarn
+RUN npm ci
 
 COPY . .
 
-RUN yarn run build
+RUN npm run build
 
 EXPOSE 3000
 
-CMD ["yarn", "run", "start"]
+CMD ["npm", "start"]

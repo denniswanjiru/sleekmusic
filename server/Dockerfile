@@ -1,15 +1,14 @@
-FROM node:18-alpine
-
-WORKDIR /usr/app
-
-COPY package.json .
-
-RUN yarn
-
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
 COPY . .
+RUN npm run build
 
-RUN yarn run build
-
-EXPOSE 3000
-
-CMD ["yarn", "run", "start"]
+FROM node:18-alpine AS server
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --production
+COPY --from=builder ./app/build ./build
+EXPOSE 8000
+CMD ["npm", "start"]
