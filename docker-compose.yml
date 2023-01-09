@@ -3,34 +3,48 @@ services:
   client: 
     build: 
       context: ./client
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: sleek-client
+    depends_on:
+      - api
     ports:
       - 3000:3000
     volumes:
-      - './client:/usr/app'
-      - '/usr/app/node_modules'
+      - './client:/app'
+      - '/app/node_modules'
     environment:
-      - REACT_APP_BACKEND_URL=/api
+      # - REACT_APP_BACKEND_URL=/api
       - CHOKIDAR_USEPOLLING=true
+    restart: always
 
-  server:
+  api:
     build: 
-      context: ./server
-      dockerfile: Dockerfile
-    container_name: sleek-server
+      context: ./api
+      dockerfile: Dockerfile.dev
+    container_name: sleek-api
     ports:
-      - 8000:8000
+      - 8080:8080
     volumes:
-      - './server:/usr/app'
-      - '/usr/app/node_modules'
+      - './api:/app'
+      - '/app/node_modules'
     environment:
       - CHOKIDAR_USEPOLLING=true
+    restart: always
 
   # nginx:
   #   build:
   #     context: ./nginx
-  #     dockerfile: Dockerfile
+  #     dockerfile: Dockerfile.dev
   #   ports:
-  #     - 3000:80
+  #     - 7777:80
+  #   depends_on: 
+  #     - api
+  #     - client
+  #   container_name: sleek-nginx
   #   restart: always
+  #   networks:
+  #     - sleek-net
+
+# networks:
+#   sleek-net:
+#     driver: bridge

@@ -1,12 +1,12 @@
 {
   "name": "sleek-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "license": "MIT",
   "scripts": {
     "build": "npx tsc",
     "start": "node ./build/index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q build/index.js\""
   },
   "dependencies": {
     "cors": "^2.8.5",

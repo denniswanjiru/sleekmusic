@@ -10,13 +10,15 @@ export default function Home() {
   const [data, setData] = useState<any>({});
 
   useEffect(() => {
-    fetch("http://localhost:8000")
+    fetch("http://localhost:8080")
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch(console.log);
   }, []);
 
-  console.log({ data });
+  useEffect(() => {
+    console.log({ data });
+  }, [data]);
 
   return (
     <>
@@ -27,7 +29,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1>Sleek</h1>
+        <h1>Sleek Music</h1>
         <div className={styles.center}>
           <Image
             className={styles.logo}
