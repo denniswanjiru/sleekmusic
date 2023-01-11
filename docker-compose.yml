@@ -14,15 +14,15 @@ services:
     networks:
       - sleek-music
 
-  mongoexpress:
+  mongo-express:
     image: mongo-express
+    restart: always
     ports:
-      - "8081:8081"
-    links:
-      - mongo
-    env_file: ./.env
-    environment: 
-      - ME_CONFIG_MONGODB_URL=mongodb://root:pass@mongo:27017/
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_HOST}:${MONGODB_DOCKER_PORT}/
     networks:
       - sleek-music
       
@@ -62,7 +62,6 @@ services:
       - './client:/app'
       - '/app/node_modules'
     environment:
-      # - REACT_APP_BACKEND_URL=/api
       - CHOKIDAR_USEPOLLING=true
     restart: always
     stdin_open: true
