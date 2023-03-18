@@ -26,15 +26,15 @@ services:
     networks:
       - sleek-music
       
-  api:
+  backend:
     build: 
-      context: ./api
+      context: ./backend
       dockerfile: Dockerfile.dev
-    container_name: sleek-api
+    container_name: sleek-backend
     depends_on:
       - mongo
     volumes:
-      - './api:/app'
+      - './backend:/app'
       - '/app/node_modules'
     restart: always
     env_file: ./.env
@@ -55,7 +55,7 @@ services:
       dockerfile: Dockerfile.dev
     container_name: sleek-client
     depends_on:
-      - api
+      - backend
     ports:
       - 3000:3000
     volumes:
